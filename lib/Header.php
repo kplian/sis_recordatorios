@@ -4,6 +4,6 @@ class Header extends Template {
     {
         $this->file = TEMPLATE_PATH.'/header.tpl';
         $this->values['logo_atlas'] = TEMPLATE_PATH.'/img/logo-atlas.png';
-        $this->values['titulo'] = 'Recordatorio';
+        $this->values['titulo'] = '';
     }
 }
