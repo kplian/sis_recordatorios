@@ -64,6 +64,9 @@ class Tarjeta implements IEmailStrategy
 
         $correo = new CorreoExterno();
         $correo->addDestinatario($this->params['emails'], $this->params['nombres']);
+        $correo->AddCC('endetransmisionsa@endetransmision.bo','Ende Transmision SA');
+        $correo->AddCC('obradeterminada@endetransmision.bo','Obra Determinada');
+        $correo->addC($this->params['emails'], $this->params['nombres']);
         $correo->setAsunto('Feliz Cumpleaños');
         $correo->setMensajeHtml($contenido);
         $correo->setMensaje($contenido);
