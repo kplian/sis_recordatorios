@@ -46,7 +46,7 @@
                                             <td width="10">&nbsp;</td>
                                             <td style="color: #2D2D8A;font-size: 18pt;font-weight: normal;line-height: 28px;font-family: Calibri Light;"
                                                 align="center">
-                                                En este día tan especial, queremos destacar <b>[@cualidad_1]</b> y <b>[@cualidad_2]</b> que le
+                                                En este día tan especial, queremos destacar <b style="text-transform: lowercase;">[@cualidad_1]</b> y <b style="text-transform: lowercase;">[@cualidad_2]</b> que le
                                                 aportas al equipo. Estamos orgullosos de que seas parte de la familia ENDE
                                                 Transmisión
                                             </td>

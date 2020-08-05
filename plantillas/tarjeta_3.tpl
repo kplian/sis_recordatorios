@@ -60,7 +60,7 @@
                                     align="left">
                                     Que tu cumpleaños sea siempre un punto de partida para nuevas emociones, alegrías y
                                     propósitos.
-                                    Gracias por <b>[@cualidad_1]</b> y <b>[@cualidad_2]</b> que le aportas al equipo de trabajo día
+                                    Gracias por <b style="text-transform: lowercase;">[@cualidad_1]</b> y <b style="text-transform: lowercase;">[@cualidad_2]</b> que le aportas al equipo de trabajo día
                                     a día.
                                 </td>
                             </tr>
