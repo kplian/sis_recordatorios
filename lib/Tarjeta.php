@@ -45,7 +45,7 @@ class Tarjeta implements IEmailStrategy
         foreach ($this->params as $key => $item) {
             $tpl->set($key, $item);
         }
-        $tpl->set('foto', '../../../'.$_SESSION['_FOLDER_FOTOS_PERSONA'].'/' . $this->params['nombre_archivo_foto']);
+        $tpl->set('foto', '../../'.$_SESSION['_FOLDER_FOTOS_PERSONA'].'/' . $this->params['nombre_archivo_foto']);
         $tpl->set('bg_img', $seleccionado['bg_img']);
         $tpl->set('bg_img_url', $seleccionado['bg_img_url']);
         $tpl->set('logo', $seleccionado['logo']);

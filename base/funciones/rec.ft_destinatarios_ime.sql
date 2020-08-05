@@ -33,6 +33,8 @@ DECLARE
     v_filename          varchar;
     v_recodatorio       record;
     v_registro          record;
+    q                   varchar;
+    v_registro_rec      record;
 BEGIN
 
     v_nombre_funcion = 'rec.ft_destinatarios_ime';
@@ -161,63 +163,73 @@ BEGIN
 
         BEGIN
             --Sentencia de la eliminacion
-            select *
-            into v_recodatorio
-            from rec.trecordatorios reco
-            where reco.id_recordatorio = v_parametros.id_recordatorio;
 
-            for v_registro in execute 'select * FROM ' || v_recodatorio.ruta_script
-                LOOP
-                    if v_registro.ci is not null then
-                        INSERT INTO rec.tdestinatarios(estado_reg,
-                                                       ci,
-                                                       estado,
-                                                       fecha_envio_original,
-                                                       fecha_envio_forzado,
-                                                       id_recordatorio,
-                                                       id_usuario_reg,
-                                                       fecha_reg,
-                                                       id_usuario_ai,
-                                                       usuario_ai,
-                                                       id_usuario_mod,
-                                                       fecha_mod,
-                                                       emails,
-                                                       dia,
-                                                       mes,
-                                                       anio,
-                                                       nombres,
-                                                       apellido_paterno,
-                                                       apellido_materno)
-                        VALUES ('activo',
-                                v_registro.ci,
-                                '',
-                                v_registro.fecha_envio_original,
-                                v_registro.fecha_envio_forzado,
-                                v_recodatorio.id_recordatorio,
-                                p_id_usuario,
-                                now(),
-                                v_parametros._id_usuario_ai,
-                                v_parametros._nombre_usuario_ai,
-                                null,
-                                null,
-                                v_registro.emails,
-                                v_registro.dia,
-                                v_registro.mes,
-                                v_registro.anio,
-                                v_registro.nombres,
-                                v_registro.apellido_paterno,
-                                v_registro.apellido_materno)
-                        on conflict on constraint tdestinatarios_pk
-                            do update set fecha_envio_original = v_registro.fecha_envio_original,
-                                          fecha_envio_forzado  = v_registro.fecha_envio_forzado,
-                                          emails               = v_registro.emails,
-                                          dia                  = v_registro.dia,
-                                          mes                  = v_registro.mes,
-                                          anio                 = v_registro.anio,
-                                          nombres              = v_registro.nombres,
-                                          apellido_paterno     = v_registro.apellido_paterno,
-                                          apellido_materno     = v_registro.apellido_materno;
-                    end if;
+
+            IF pxp.f_existe_parametro(p_tabla, 'id_recordatorio') THEN
+                q = 'select *
+                from rec.trecordatorios reco
+                where  reco.id_recordatorio = ' || v_parametros.id_recordatorio;
+            else
+                q = 'select *
+                from rec.trecordatorios reco
+                where  reco.estado = ''Ejecutando'' ';
+            end if;
+
+            for v_registro_rec in execute q
+                loop
+                    for v_registro in execute 'select * FROM ' || v_registro_rec.ruta_script
+                        LOOP
+                            if v_registro.ci is not null then
+                                INSERT INTO rec.tdestinatarios(estado_reg,
+                                                               ci,
+                                                               estado,
+                                                               fecha_envio_original,
+                                                               fecha_envio_forzado,
+                                                               id_recordatorio,
+                                                               id_usuario_reg,
+                                                               fecha_reg,
+                                                               id_usuario_ai,
+                                                               usuario_ai,
+                                                               id_usuario_mod,
+                                                               fecha_mod,
+                                                               emails,
+                                                               dia,
+                                                               mes,
+                                                               anio,
+                                                               nombres,
+                                                               apellido_paterno,
+                                                               apellido_materno)
+                                VALUES ('activo',
+                                        v_registro.ci,
+                                        '',
+                                        v_registro.fecha_envio_original,
+                                        v_registro.fecha_envio_forzado,
+                                        v_registro_rec.id_recordatorio,
+                                        p_id_usuario,
+                                        now(),
+                                        v_parametros._id_usuario_ai,
+                                        v_parametros._nombre_usuario_ai,
+                                        null,
+                                        null,
+                                        v_registro.emails,
+                                        v_registro.dia,
+                                        v_registro.mes,
+                                        v_registro.anio,
+                                        v_registro.nombres,
+                                        v_registro.apellido_paterno,
+                                        v_registro.apellido_materno)
+                                on conflict on constraint tdestinatarios_pk
+                                    do update set fecha_envio_original = v_registro.fecha_envio_original,
+                                                  fecha_envio_forzado  = v_registro.fecha_envio_forzado,
+                                                  emails               = v_registro.emails,
+                                                  dia                  = v_registro.dia,
+                                                  mes                  = v_registro.mes,
+                                                  anio                 = v_registro.anio,
+                                                  nombres              = v_registro.nombres,
+                                                  apellido_paterno     = v_registro.apellido_paterno,
+                                                  apellido_materno     = v_registro.apellido_materno;
+                            end if;
+                        end loop;
                 end loop;
             --Definicion de la respuesta
             v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'Recordatorios eliminado(a)');

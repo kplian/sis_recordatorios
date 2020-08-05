@@ -40,7 +40,7 @@ BEGIN
         BEGIN
             --Sentencia de la consulta
             v_paginacion = '';
-            if (v_parametros.puntero is not null AND v_parametros.cantidad is not null) then
+            if (pxp.f_existe_parametro(p_tabla,'puntero') AND pxp.f_existe_parametro(p_tabla,'cantidad')) then
                 v_paginacion = ' limit ' || v_parametros.cantidad || ' offset ' || v_parametros.puntero;
             end if;
             v_consulta := 'SELECT
@@ -51,7 +51,7 @@ BEGIN
                         des.apellido_paterno,
                         des.apellido_materno,
                         des.emails,
-                        des.estado,
+                        reco.estado,
                         des.id_usuario_reg,
                         des.fecha_reg,
                         des.id_usuario_ai,

@@ -101,6 +101,9 @@ class ACTDestinatarios extends ACTbase
         $ci = $this->objParam->getParametro('ci');
         $this->objParam->defecto('ordenacion', 'id_recordatorio');
         $this->objParam->defecto('dir_ordenacion', 'asc');
+        $this->objParam->defecto('cantidad', 1);
+        $this->objParam->defecto('puntero', 0);
+
         $this->objParam->addFiltro(" des.ci = ''".$ci."'' AND des.id_recordatorio = ''" . $id_recordatorio . "''");
         $this->objFunc = $this->create('MODDestinatarios');
         $this->res = $this->objFunc->listarDestinatarios($this->objParam);
