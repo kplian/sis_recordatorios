@@ -9,8 +9,8 @@
             <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
         </tr>
         <tr>
-            <td align="center" valign="top">
-                [@content]
+            <td align="center" valign="top" height="560">
+               [@content]
             </td>
         </tr>
         <tr>

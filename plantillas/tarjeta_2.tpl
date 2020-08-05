@@ -52,7 +52,7 @@
                                 <td width="20">&nbsp;</td>
                                 <td style="color: #ffffff;font-size: 18pt;font-weight: normal;line-height: 28px;font-family: Calibri Light;"
                                     align="left">
-                                    Para ti que estás de cumpleaños, nuestros mejores deseos... Gracias por <b>[@cualidad_1]</b> y <b>[@cualidad_2]</b> que le aportas al equipo de trabajo día a día. Que logres todo lo que te propongas
+                                    Para ti que estás de cumpleaños, nuestros mejores deseos... Gracias por <b style="text-transform: lowercase;">[@cualidad_1]</b> y <b style="text-transform: lowercase;">[@cualidad_2]</b> que le aportas al equipo de trabajo día a día. Que logres todo lo que te propongas
                                     a nivel personal y profesional.
                                 </td>
                                 <td width="45%">&nbsp;</td>
