@@ -1,7 +1,7 @@
 <?php
 /***
- * Nombre: ActionEnviarForzadosRecordatorio.php
- * Proposito:  Importar correos del imbox hacia HelpDesk
+ * Nombre: ActionSincronizarDestinatarios.php
+ * Proposito:  Sincronizar los destinatarios
  * Autor:    valvarado
  * Fecha:    17-06-2020 22:13:29
  */
@@ -27,5 +27,6 @@ $_SESSION["_PETICION"] = serialize($aPostData);
 $objParam = new CTParametro($aPostData['p'], null, $aPostFiles);
 $objParam->addParametro('id_usuario', 1);
 $recordatorio = new ACTGenerico($objParam);
-$rs = $recordatorio->enviar_forzados();
+$rs = $recordatorio->sincronizar();
+print_r($rs);
 ?>

@@ -26,7 +26,7 @@ class MODDestinatarios extends MODbase
         $this->procedimiento = 'rec.ft_destinatarios_sel';
         $this->transaccion = 'REC_DES_SEL';
         $this->tipo_procedimiento = 'SEL';//tipo de transaccion
-        $this->tipo_conexion = 'seguridad';
+
         //Definicion de la lista del resultado del query
         $this->captura('id_recordatorio', 'int4');
         $this->captura('estado_reg', 'varchar');

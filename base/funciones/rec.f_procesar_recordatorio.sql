@@ -1,17 +1,17 @@
 CREATE OR REPLACE FUNCTION rec.f_procesar_recordatorio()
     RETURNS TABLE
             (
-                ci                  varchar,
-                nombres             varchar,
-                apellido_paterno    varchar,
-                apellido_materno    varchar,
-                emails              varchar,
-                nombre_archvio_foto text,
-                fecha_envio_original    date,
-                fecha_envio_forzado date,
-                dia                 integer,
-                mes                 integer,
-                anio                integer
+                ci                   varchar,
+                nombres              varchar,
+                apellido_paterno     varchar,
+                apellido_materno     varchar,
+                emails               varchar,
+                nombre_archvio_foto  text,
+                fecha_envio_original date,
+                fecha_envio_forzado  date,
+                dia                  integer,
+                mes                  integer,
+                anio                 integer
             )
 AS
 $body$
@@ -23,14 +23,22 @@ declare
     v_fecha_actual   date;
 begin
     v_fecha_actual = now();
-    FOR v_registros in (select per.ci,
-                               per.nombre,
-                               per.apellido_paterno,
-                               per.apellido_materno,
-                               per.fecha_nacimiento,
-                               per.correo as emails,
-                               per.nombre_archivo_foto
-                        from segu.tpersona per)
+    FOR v_registros in (select DISTINCT per.id_persona,
+                                        per.ci,
+                                        per.nombre,
+                                        per.apellido_paterno,
+                                        per.apellido_materno,
+                                        per.fecha_nacimiento,
+                                        c.email_empresa as emails,
+                                        per.nombre_archivo_foto,
+                                        c.fecha_finalizacion,
+                                        c.fecha_asignacion
+                        from orga.vfuncionario_cargo c
+                                 inner join segu.tpersona per on c.ci = per.ci
+                        where (date_part('DAY', per.fecha_nacimiento) = date_part('DAY', v_fecha_actual)
+                            AND date_part('MONTH', per.fecha_nacimiento) = date_part('MONTH', v_fecha_actual))
+                          AND ((c.fecha_asignacion <= v_fecha_actual AND c.fecha_finalizacion >= v_fecha_actual)
+                            or (c.fecha_asignacion <= v_fecha_actual AND c.fecha_finalizacion is null)))
         LOOP
 
             ci = v_registros.ci;

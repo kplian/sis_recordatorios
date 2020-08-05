@@ -25,10 +25,13 @@ class ACTGenerico extends ACTbase
     {
         $this->objParam->defecto('ordenacion', 'id_recordatorio');
         $this->objParam->defecto('dir_ordenacion', 'asc');
+        $this->objParam->defecto('cantidad', 100000);
+        $this->objParam->defecto('puntero', 0);
         $mes = date('m');
         $dia = date('d');
-        $this->objParam->addFiltro(" reco.estado = ''Ejecutando'' AND fecha_envio_forzado is null AND des.mes = ''" . $mes . "'' AND des.dia  = ''" . $dia . "''");
-        $this->objFunc = $this->create('MODDestinatarios');
+        $this->objParam->parametros_consulta['filtro'] = ' 0 = 0 ';
+        $this->objParam->addFiltro(" reco.estado = ''Ejecutando'' AND des.fecha_envio_forzado is null  AND des.mes = ''" . $mes . "'' AND des.dia  = ''" . $dia . "''");
+        $this->objFunc = $this->create('MODGenerico');
 
         $this->res = $this->objFunc->listarDestinatarios($this->objParam);
         if ($this->res->getTipo() == 'EXITO' && count($this->res->getDatos()) > 0) {
@@ -62,10 +65,13 @@ class ACTGenerico extends ACTbase
     {
         $this->objParam->defecto('ordenacion', 'id_recordatorio');
         $this->objParam->defecto('dir_ordenacion', 'asc');
+        $this->objParam->defecto('cantidad', 100000);
+        $this->objParam->defecto('puntero', 0);
         $mes = date('m');
         $dia = date('d');
-        $this->objParam->addFiltro(" reco.estado = ''Ejecutando'' AND fecha_envio_forzado is not null AND des.mes = ''" . $mes . "'' AND des.dia  = ''" . $dia . "''");
-        $this->objFunc = $this->create('MODDestinatarios');
+        $this->objParam->parametros_consulta['filtro'] = ' 0 = 0 ';
+        $this->objParam->addFiltro(" reco.estado = ''Ejecutando'' AND des.fecha_envio_forzado is not null  AND des.mes = ''" . $mes . "'' AND des.dia  = ''" . $dia . "''");
+        $this->objFunc = $this->create('MODGenerico');
 
         $this->res = $this->objFunc->listarDestinatarios($this->objParam);
         if ($this->res->getTipo() == 'EXITO' && count($this->res->getDatos()) > 0) {
@@ -91,6 +97,13 @@ class ACTGenerico extends ACTbase
         $this->objParam->addParametro('lista_envios', $json);
         $this->objFunc = $this->create('MODGenerico');
         $this->res = $this->objFunc->insertarEnvios($this->objParam);
+        $this->res->imprimirRespuesta($this->res->generarJson());
+    }
+
+    function sincronizar()
+    {
+        $this->objFunc = $this->create('MODGenerico');
+        $this->res = $this->objFunc->sincronizar($this->objParam);
         $this->res->imprimirRespuesta($this->res->generarJson());
     }
 }
