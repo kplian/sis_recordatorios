@@ -14,7 +14,7 @@
                                 <td width="100%" align="center">
             <![endif]-->
 
-            <table cellpadding="0" cellspacing="0" border="0" class="container">
+            <table cellpadding="0" height="500" cellspacing="0" border="0" class="container">
                 <tr>
                     <td height="10" colspan="5" style="font-size:10px; line-height:10px;">&nbsp;</td>
                 </tr>
@@ -27,7 +27,7 @@
                                     <!-- START PICTURE -->
                                     <table cellpadding="0" cellspacing="0" width="120">
                                         <tr>
-                                            <td align="center" style="background-color: #ffffff">
+                                            <td align="center">
                                                 <img src="[@foto]" height="120" style="height: 120px;">
                                             </td>
                                         </tr>

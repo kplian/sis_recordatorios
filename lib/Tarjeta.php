@@ -45,7 +45,18 @@ class Tarjeta implements IEmailStrategy
         foreach ($this->params as $key => $item) {
             $tpl->set($key, $item);
         }
-        $tpl->set('foto', '../../'.$_SESSION['_FOLDER_FOTOS_PERSONA'].'/' . $this->params['nombre_archivo_foto']);
+
+        $files = glob(dirname(__FILE__) . '/../../' . $_SESSION['_FOLDER_FOTOS_PERSONA'] . '/' . $this->params['ci'] . '.*');
+        $default = glob(dirname(__DIR__) . '/foto_persona/user-icon.jpg');
+        if (count($files) > 0) {
+            $foto = $files[0];
+        } else
+            $foto = $default[0];
+        $image = file_get_contents($foto);
+        if ($image !== false){
+            $fotos = 'data:image/jpg;base64,'.base64_encode($image);
+        }
+        $tpl->set('foto', $fotos);
         $tpl->set('bg_img', $seleccionado['bg_img']);
         $tpl->set('bg_img_url', $seleccionado['bg_img_url']);
         $tpl->set('logo', $seleccionado['logo']);
@@ -107,7 +118,18 @@ class Tarjeta implements IEmailStrategy
         foreach ($this->params as $key => $item) {
             $tpl->set($key, $item);
         }
-        $tpl->set('foto','../../../'.$_SESSION['_FOLDER_FOTOS_PERSONA'].'/'. $this->params['nombre_archivo_foto']);
+
+        $files = glob(dirname(__FILE__) . '/../../' . $_SESSION['_FOLDER_FOTOS_PERSONA'] . '/' . $this->params['ci'] . '.*');
+        $default = glob(dirname(__DIR__) . '/foto_persona/user-icon.jpg');
+        if (count($files) > 0) {
+            $foto = $files[0];
+        } else
+            $foto = $default[0];
+        $image = file_get_contents($foto);
+        if ($image !== false){
+            $fotos = 'data:image/jpg;base64,'.base64_encode($image);
+        }
+        $tpl->set('foto', $fotos);
         $tpl->set('bg_img', $seleccionado['bg_img']);
         $tpl->set('bg_img_url', $seleccionado['bg_img_url']);
         $tpl->set('logo', $seleccionado['logo']);
