@@ -21,6 +21,8 @@ declare
     v_registros      record;
     fecha_envio_tmp  date;
     v_fecha_actual   date;
+    v_cargo          record;
+    v_fecha_envio    date;
 begin
     v_fecha_actual = now();
     FOR v_registros in (select DISTINCT per.id_persona,
@@ -35,22 +37,25 @@ begin
                                         c.fecha_asignacion
                         from orga.vfuncionario_cargo c
                                  inner join segu.tpersona per on c.ci = per.ci
-                        where (date_part('DAY', per.fecha_nacimiento) = date_part('DAY', v_fecha_actual)
-                            AND date_part('MONTH', per.fecha_nacimiento) = date_part('MONTH', v_fecha_actual))
-                          AND ((c.fecha_asignacion <= v_fecha_actual AND c.fecha_finalizacion >= v_fecha_actual)
-                            or (c.fecha_asignacion <= v_fecha_actual AND c.fecha_finalizacion is null)))
+                        where ((c.fecha_asignacion <=
+                                (date_part('YEAR', v_fecha_actual) || '-' || date_part('MONTH', per.fecha_nacimiento) ||
+                                 '-' ||
+                                 date_part('DAY', per.fecha_nacimiento))::date
+                            AND c.fecha_finalizacion >=
+                                (date_part('YEAR', v_fecha_actual) || '-' || date_part('MONTH', per.fecha_nacimiento) ||
+                                 '-' ||
+                                 date_part('DAY', per.fecha_nacimiento))::date)
+                            or (c.fecha_asignacion <=
+                                (date_part('YEAR', v_fecha_actual) || '-' || date_part('MONTH', per.fecha_nacimiento) ||
+                                 '-' ||
+                                 date_part('DAY', per.fecha_nacimiento))::date
+                                AND c.fecha_finalizacion is null)))
         LOOP
 
-            ci = v_registros.ci;
-            nombres = v_registros.nombre;
-            apellido_paterno = v_registros.apellido_paterno;
-            apellido_materno = v_registros.apellido_materno;
-            emails = v_registros.emails;
-            nombre_archvio_foto = v_registros.nombre_archivo_foto;
             fecha_envio_original =
                     (date_part('YEAR', v_fecha_actual) || '-' || date_part('MONTH', v_registros.fecha_nacimiento) ||
                      '-' || date_part('DAY', v_registros.fecha_nacimiento))::date;
-
+            v_fecha_envio = fecha_envio_original;
             dia = date_part('DAY', fecha_envio_original);
             mes = date_part('MONTH', fecha_envio_original);
             anio = date_part('YEAR', fecha_envio_original);
@@ -59,14 +64,22 @@ begin
                 fecha_envio_tmp = (date_trunc('week', fecha_envio_original::date) + INTERVAL '4 days');
                 fecha_envio_forzado = date_part('YEAR', v_fecha_actual) || '-' || date_part('MONTH', fecha_envio_tmp) ||
                                       '-' || date_part('DAY', fecha_envio_tmp);
+                v_fecha_envio = fecha_envio_forzado;
                 dia = date_part('DAY', fecha_envio_forzado);
                 mes = date_part('MONTH', fecha_envio_forzado);
                 anio = date_part('YEAR', fecha_envio_forzado);
             else
                 fecha_envio_forzado = null;
             end if;
-            return next;
 
+            ci = v_registros.ci;
+            nombres = v_registros.nombre;
+            apellido_paterno = v_registros.apellido_paterno;
+            apellido_materno = v_registros.apellido_materno;
+            emails = v_registros.emails;
+            nombre_archvio_foto = v_registros.nombre_archivo_foto;
+
+            return next;
         end loop;
 exception
     when others then
