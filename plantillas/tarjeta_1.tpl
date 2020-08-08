@@ -83,7 +83,7 @@
                                 <td height="20" colspan="3" style="line-height:20px;">&nbsp;</td>
                             </tr>
                             <tr>
-                                <td align="center" style="background-color: #ffffff">
+                                <td align="center" >
                                     <img src="[@foto]" width="120"
                                          style="width: 120px;">
                                 </td>

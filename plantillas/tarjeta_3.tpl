@@ -27,7 +27,7 @@
                                     <!-- START PICTURE -->
                                     <table cellpadding="0" cellspacing="0" width="120">
                                         <tr>
-                                            <td align="center" style="background-color: #ffffff">
+                                            <td align="center">
                                                 <img src="[@foto]" height="120" style="height: 120px;">
                                             </td>
                                         </tr>
