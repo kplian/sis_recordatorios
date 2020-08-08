@@ -68,3 +68,6 @@ alter table rec.tdestinatarios
 create unique index tdestinatarios_ci_uindex
     on rec.tdestinatarios (ci);
 /***********************************F-SCP-VAN-GTAREAS-0-02/06/2020****************************************/
+/***********************************I-SCP-VAN-GTAREAS-0-07/08/2020****************************************/
+alter table rec.tenvios drop constraint tenvios_pk_2;
+/***********************************F-SCP-VAN-GTAREAS-0-07/08/2020****************************************/
