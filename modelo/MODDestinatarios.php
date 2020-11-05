@@ -102,7 +102,6 @@ class MODDestinatarios extends MODbase
         $this->tipo_procedimiento = 'IME';
 
         //Define los parametros para la funcion
-        $this->setParametro('ci', 'ci', 'int4');
         $this->setParametro('estado_reg', 'estado_reg', 'varchar');
         $this->setParametro('id_recordatorio', 'id_recordatorio', 'int4');
         $this->setParametro('ci', 'ci', 'varchar');
@@ -114,6 +113,8 @@ class MODDestinatarios extends MODbase
         $this->setParametro('ruta_imagen', 'ruta_imagen', 'varchar');
         $this->setParametro('cantidad_envios', 'cantidad_envios', 'int4');
         $this->setParametro('estado', 'estado', 'varchar');
+        $this->setParametro('fecha_envio_original', 'fecha_envio_original', 'date');
+        $this->setParametro('fecha_envio_forzado', 'fecha_envio_forzado', 'date');
 
         //Ejecuta la instruccion
         $this->armarConsulta();

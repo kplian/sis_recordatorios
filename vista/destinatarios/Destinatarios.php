@@ -362,7 +362,7 @@ header("content-type: text/javascript; charset=UTF-8");
             bdel: true,
             bsave: false,
             bnew: false,
-            bedit: false,
+            bedit: true,
             onReloadPage: function (m) {
                 this.maestro = m;
 
