@@ -47,11 +47,19 @@ class Tarjeta implements IEmailStrategy
         }
 
         $files = glob(dirname(__FILE__) . '/../../' . $_SESSION['_FOLDER_FOTOS_PERSONA'] . '/' . $this->params['ci'] . '.*');
-        $default = glob(dirname(__DIR__) . '/foto_persona/user-icon.jpg');
-        if (count($files) > 0) {
+        $default_1 = glob(dirname(__FILE__) . '/../plantillas/img/icn_male.png');
+        $default_2 = glob(dirname(__FILE__) . '/../plantillas/img/icn_famele.jpg');
+        if ($this->params['imagen_predeterminada'] == 'no' && count($files) > 0) {
             $foto = $files[0];
-        } else
-            $foto = $default[0];
+        } else{
+            if ($this->params['genero'] == 'masculino') {
+                $foto = $default_1[0];
+            }
+            else{
+                $foto = $default_2[0];
+            }
+        }
+
         $image = file_get_contents($foto);
         if ($image !== false){
             $fotos = 'data:image/jpg;base64,'.base64_encode($image);
@@ -118,13 +126,20 @@ class Tarjeta implements IEmailStrategy
         foreach ($this->params as $key => $item) {
             $tpl->set($key, $item);
         }
-
         $files = glob(dirname(__FILE__) . '/../../' . $_SESSION['_FOLDER_FOTOS_PERSONA'] . '/' . $this->params['ci'] . '.*');
-        $default = glob(dirname(__DIR__) . '/foto_persona/user-icon.jpg');
-        if (count($files) > 0) {
+        $default_1 = glob(dirname(__FILE__) . '/../plantillas/img/icn_male.png');
+        $default_2 = glob(dirname(__FILE__) . '/../plantillas/img/icn_famele.jpg');
+        if ($this->params['imagen_predeterminada'] == 'no' && count($files) > 0) {
             $foto = $files[0];
-        } else
-            $foto = $default[0];
+        } else{
+            if ($this->params['genero'] == 'masculino') {
+                $foto = $default_1[0];
+            }
+            else{
+                $foto = $default_2[0];
+            }
+        }
+
         $image = file_get_contents($foto);
         if ($image !== false){
             $fotos = 'data:image/jpg;base64,'.base64_encode($image);

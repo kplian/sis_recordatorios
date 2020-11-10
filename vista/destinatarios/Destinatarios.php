@@ -229,6 +229,31 @@ header("content-type: text/javascript; charset=UTF-8");
                 },
                 {
                     config: {
+                        name: 'imagen_predeterminada',
+                        fieldLabel: 'Mostrar Imagen Predeterminada?',
+                        qtip: 'Si se mostrará la imagen predeterminada en lugar de la fotografía original',
+                        allowBlank: false,
+                        anchor: '40%',
+                        gwidth: 80,
+                        typeAhead: true,
+                        triggerAction: 'all',
+                        lazyRender: true,
+                        mode: 'local',
+                        store: ['si', 'no']
+                    },
+                    type: 'ComboBox',
+                    id_grupo: 1,
+                    filters: {
+                        pfiltro: 'des.imagen_predeterminada',
+                        type: 'list',
+                        options: ['si', 'no']
+                    },
+                    valorInicial: 'no',
+                    grid: true,
+                    form: true
+                },
+                {
+                    config: {
                         name: 'usr_reg',
                         fieldLabel: 'Creado por',
                         allowBlank: true,
@@ -354,6 +379,7 @@ header("content-type: text/javascript; charset=UTF-8");
                 {name: 'anio', type: 'numeric'},
                 {name: 'nombre_archivo_foto', type: 'string'},
                 {name: 'fecha_nacimiento', type: 'date', dateFormat: 'Y-m-d'},
+                {name: 'imagen_predeterminada', type: 'string'},
             ],
             sortInfo: {
                 field: 'ci',

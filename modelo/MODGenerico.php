@@ -57,6 +57,7 @@ class MODGenerico extends MODbase
         $this->captura('cualidad_1', 'varchar');
         $this->captura('cualidad_2', 'varchar');
         $this->captura('genero', 'varchar');
+        $this->captura('imagen_predeterminada', 'varchar');
         //Ejecuta la instruccion
         $this->armarConsulta();
         $this->ejecutarConsulta();

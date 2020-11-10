@@ -71,3 +71,7 @@ create unique index tdestinatarios_ci_uindex
 /***********************************I-SCP-VAN-GTAREAS-0-07/08/2020****************************************/
 alter table rec.tenvios drop constraint tenvios_pk_2;
 /***********************************F-SCP-VAN-GTAREAS-0-07/08/2020****************************************/
+/***********************************I-SCP-VAN-GTAREAS-0-10/11/2020****************************************/
+alter table rec.tdestinatarios
+	add imagen_predeterminada varchar default 'no';
+/***********************************F-SCP-VAN-GTAREAS-0-10/11/2020****************************************/

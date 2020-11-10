@@ -119,7 +119,8 @@ BEGIN
                 id_usuario_ai    = v_parametros._id_usuario_ai,
                 usuario_ai       = v_parametros._nombre_usuario_ai,
                 fecha_envio_original = v_parametros.fecha_envio_original,
-                fecha_envio_forzado = v_parametros.fecha_envio_forzado
+                fecha_envio_forzado = v_parametros.fecha_envio_forzado,
+                imagen_predeterminada = v_parametros.imagen_predeterminada
             WHERE ci = v_parametros.ci;
 
             --Definicion de la respuesta

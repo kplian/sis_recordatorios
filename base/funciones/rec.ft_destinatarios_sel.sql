@@ -73,7 +73,8 @@ BEGIN
                         per.sobrenombre,
                         per.cualidad_1,
                         per.cualidad_2,
-                        per.genero
+                        per.genero,
+                        des.imagen_predeterminada
                         FROM rec.tdestinatarios des
                         JOIN segu.tpersona per ON per.ci = des.ci
                         JOIN rec.trecordatorios reco ON reco.id_recordatorio = des.id_recordatorio
