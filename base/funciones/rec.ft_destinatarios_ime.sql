@@ -172,7 +172,9 @@ BEGIN
                 q = 'select *
                 from rec.trecordatorios reco
                 where  reco.id_recordatorio = ' || v_parametros.id_recordatorio;
-            else
+            end if;
+
+            IF pxp.f_existe_parametro(p_tabla, 'cron') THEN
                 q = 'select *
                 from rec.trecordatorios reco
                 where  reco.estado = ''Ejecutando'' ';
@@ -236,7 +238,6 @@ BEGIN
                 end loop;
             --Definicion de la respuesta
             v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'Recordatorios eliminado(a)');
-            v_resp = pxp.f_agrega_clave(v_resp, 'id_recordatorio', v_parametros.id_recordatorio::varchar);
 
             --Devuelve la respuesta
             RETURN v_resp;

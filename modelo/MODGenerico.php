@@ -126,10 +126,8 @@ class MODGenerico extends MODbase
         $this->transaccion = 'REC_DETENV_REG';
         $this->tipo_procedimiento = 'IME';
         $this->tipo_conexion = 'seguridad';
-        //Define los parametros para la funcion
-//        $this->setParametro('id_recordatorio', 'id_recordatorio', 'int4');
-
-        //Ejecuta la instruccion
+        $this->setParametro('id_recordatorio', 'id_recordatorio', 'int4');
+        $this->setParametro('cron', 'cron', 'int4');
         $this->armarConsulta();
         $this->ejecutarConsulta();
 

@@ -26,6 +26,7 @@ $aPostData = $objPostData->getData();
 $_SESSION["_PETICION"] = serialize($aPostData);
 $objParam = new CTParametro($aPostData['p'], null, $aPostFiles);
 $objParam->addParametro('id_usuario', 1);
+$objParam->addParametro('cron', 1);
 $recordatorio = new ACTGenerico($objParam);
 $rs = $recordatorio->sincronizar();
 print_r($rs);
